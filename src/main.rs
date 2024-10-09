@@ -7,10 +7,13 @@ fn main() {
     let password = "password\n"; //interestingly the way the input is taken, the new line is read in.
     let salt = b"this is the salt";
 
-    let n = 100100 + 1; //this can be user input, but I put it here so that its easy to change. 100101 does not take long (1 second)
+    let n = 100100; //this can be user input, but I put it here so that its easy to change. 100101 does not take long (1 second)
+    let one_more = 100101;
 
-    let hash = create_hash(password.as_bytes(), salt, n); //outputs the hashed password
-    println!("this is the hashed password: {:?}", hash);
+    //let hash = create_hash(password.as_bytes(), salt, n); //outputs the hashed password
+    let hash_authen = create_hash(password.as_bytes(), salt, one_more);
+    //println!("this is the hashed password: {:?}", hash);
+    println!("this is the hashed Authentication: {:?}", hash_authen);
 
     println!("Can you get in the vault?");
     print!("Enter password below: \n");
@@ -18,7 +21,7 @@ fn main() {
     let mut guessed_password = String::new();
     stdin().read_line(&mut guessed_password).expect("error: unable to read user input");
 
-    vault(guessed_password.as_bytes(), salt, n, hash); // the vault is hashing a new password based on input and compares it to the given hashed password
+    vault(guessed_password.as_bytes(), salt, n, hash_authen); // the vault is hashing a new password based on input and compares it to the given hashed password
 }
 
 fn create_hash(password : &[u8], salt : &[u8], n: u32) -> [u8; 20] {
