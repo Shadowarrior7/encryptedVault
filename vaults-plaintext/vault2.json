@@ -1,0 +1,15 @@
+{
+  "name": "Robert California",
+  "Chase Bank": {
+    "username": "LizardMan",
+    "password": "RobertIsTheBest"
+  },
+  "Github": {
+    "username": "LizardMan_git",
+    "password": "GitTheBeast"
+  },
+  "BYU":{
+    "username": "LizardMan_byu",
+    "password": "IGottaLearn"
+  }
+}
