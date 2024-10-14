@@ -40,7 +40,8 @@ fn main() {
     let hash = createkey(password, salt);
     let key:Key<Aes256> = key.try_into().expect("issue");
     let cipher = Aes256::new(&key);
-    let mut block = GenericArray::from(vault1.as_bytes());
+    let block_size = vault1;
+    let mut block = vault1.as_bytes();
     let encrypted_vault1 = cipher.encrypt_block(&mut block);
     println!("{:?}", encrypted_vault1);
     //fs::write(encrypted_dir, encrypted_vault1).expect("Could not write vault1 file");
