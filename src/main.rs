@@ -7,15 +7,12 @@ use pbkdf2::{pbkdf2_hmac};
 use sha2::Sha256;
 use serde_json::Value;
 use aes_gcm;
-use aes::Aes256;
-use aes::cipher::{BlockCipherEncrypt, BlockCipherDecrypt, KeyInit, array, Array};
-use aes::cipher::array::ArrayN;
-use aes_gcm::Aes256Gcm;
-use crypto_common;
-use crypto_common::Key;
-use crypto_common::Block;
-use generic_array;
-use generic_array::GenericArray;
+use aes_gcm::aead::consts::U12;
+use aes_gcm::{
+    aead::{Aead, AeadCore, KeyInit, OsRng},
+    Aes256Gcm, Key, Nonce,
+};
+
 
 fn main() {
     let vault1_path = "/home/kaladin/Documents/encryptedVault/vaults-plaintext/vault1.json";
@@ -35,15 +32,19 @@ fn main() {
 
     println!("make vault 1");
     let password = b"password1";
-    let salt = b"this is the salt";
-    let key = create_hash(password, salt);
-    let hash = createkey(password, salt);
-    let key:Key<Aes256> = key.try_into().expect("issue");
-    let cipher = Aes256::new(&key);
-    let block_size = vault1;
-    let mut block = vault1.as_bytes();
-    let encrypted_vault1 = cipher.encrypt_block(&mut block);
-    println!("{:?}", encrypted_vault1);
+    let salt = Aes256Gcm::generate_nonce().expect("error with salt");
+    let key = create_hash(password, salt.as_slice());
+    let hash = createkey(password, salt.as_slice());
+    let key: &Key<Aes256Gcm> = key.as_slice().try_into().unwrap();
+    let cipher = Aes256Gcm::new(key);
+    let binding = salt.to_vec();
+    let nonce = Nonce::from_slice(&binding);
+    let cipher_text = cipher.encrypt(&nonce, vault1.as_bytes());
+    println!("encrypted vault1: {:?}", cipher_text.clone().unwrap());
+    let json = serde_json::to_string(&cipher_text.clone().unwrap());
+    println!("json: {:?}", json.unwrap().to_owned());
+
+    let cipher_text2 = serde_json::from_str(json.unwrap().as_str());
     //fs::write(encrypted_dir, encrypted_vault1).expect("Could not write vault1 file");
 
     println!("make vault 2");
