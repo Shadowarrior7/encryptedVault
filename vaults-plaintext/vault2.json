@@ -1,15 +1,15 @@
 {
-  "name": "Robert California",
-  "Chase Bank": {
-    "username": "LizardMan",
-    "password": "RobertIsTheBest"
+  "name": "James Haliday",
+  "USAA Bank": {
+    "username": "TheOasis",
+    "password": "GroovyBananaRetro86"
   },
   "Github": {
-    "username": "LizardMan_git",
-    "password": "GitTheBeast"
+    "username": "git_gud_grades",
+    "password": "OasisSixersHotel"
   },
   "BYU":{
-    "username": "LizardMan_byu",
-    "password": "IGottaLearn"
+    "username": "Oasis_University",
+    "password": "NobodyGetsWhatTheyWant"
   }
 }

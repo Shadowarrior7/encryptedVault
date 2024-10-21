@@ -1,15 +1,15 @@
 {
-  "name": "Robert California",
-  "Chase Bank": {
-    "username": "LizardMan",
-    "password": "RobertIsTheBest"
+  "name": "Frank Herbert",
+  "America First Bank": {
+    "username": "DuneEternal",
+    "password": "Maud'dibWiseMan"
   },
   "Github": {
-    "username": "LizardMan_git",
-    "password": "GitTheBeast"
+    "username": "Git-out",
+    "password": "IseewormSign!"
   },
   "BYU":{
-    "username": "LizardMan_byu",
-    "password": "IGottaLearn"
+    "username": "waterIsNeeded",
+    "password": "INeedWater&Knowldge"
   }
 }
